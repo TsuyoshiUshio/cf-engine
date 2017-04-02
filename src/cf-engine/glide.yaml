@@ -1,4 +1,3 @@
 package: cf-engine
 import:
 - package: github.com/Azure/azure-sdk-for-go
-  version: ~9.0.0-beta
