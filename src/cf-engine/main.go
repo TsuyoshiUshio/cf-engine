@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+//	"flag"
+//	"io"
+//    "gopkg.in/yaml.v2"
 
 	"github.com/Azure/azure-sdk-for-go/arm/examples/helpers"
 	"github.com/Azure/azure-sdk-for-go/arm/storage"
@@ -86,21 +89,26 @@ func main() {
 	value   := accountKey.Value
 	fmt.Printf("AccountKey: %s\nValue: %s", name, *value)
 
-	client, err := storagem.NewBasicClient(name, *value)
+	createContainer(name, *value, os.Getenv("CONTAINER_NAME"))
+
+
+}
+
+func createContainer(storageAccountName string, storageAccountKeyValue string, containerName string) {
+	client, err := storagem.NewBasicClient(storageAccountName, storageAccountKeyValue)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 		return
 	}
 
 	blobClient := client.GetBlobService()
-	cnt := blobClient.GetContainerReference(os.Getenv("CONTAINER_NAME"))
+	cnt := blobClient.GetContainerReference(containerName)
 	_, err = cnt.CreateIfNotExists()
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 		return
 	}
-	fmt.Printf("Container has been created")
-
+	fmt.Printf("Container %s has been created", containerName)
 }
 
 func checkEnvVar(envVars *map[string]string) error {

@@ -1,10 +1,11 @@
-hash: ccef436e7334cb78d4b92ec8739dc7a177a81494fea10e174872aa5eb3a5b595
-updated: 2017-04-02T22:42:48.8828821+09:00
+hash: eacd110a03b94816f80b0b203315f446fb1de8dd68862e6296b6c7d0b92ab576
+updated: 2017-04-05T16:13:21.5621557+09:00
 imports:
 - name: github.com/Azure/azure-sdk-for-go
   version: 8b742db0f792bb89ee4dadbdb2314aeb9a5626d2
   subpackages:
   - arm/examples/helpers
+  - arm/resources/resources
   - arm/storage
   - storage
 - name: github.com/Azure/go-autorest
@@ -17,4 +18,6 @@ imports:
   - autorest/validation
 - name: github.com/dgrijalva/jwt-go
   version: 2268707a8f0843315e2004ee4f1d021dc08baedf
+- name: gopkg.in/yaml.v2
+  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
 testImports: []
