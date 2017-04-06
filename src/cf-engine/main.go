@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -34,13 +35,13 @@ func main() {
 		"AZURE_SUBSCRIPTION_ID": viper.Get("AZURE_SUBSCRIPTION_ID").(string),
 		"AZURE_TENANT_ID":       viper.Get("AZURE_TENANT_ID").(string)}
 	if err := checkEnvVar(&strageConfig); err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Println("Error: %v", err)
 		return
 	}
 
 	spt, err := helpers.NewServicePrincipalTokenFromCredentials(strageConfig, azure.PublicCloud.ResourceManagerEndpoint)
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Println("Error: %v", err)
 		return
 	}
 
@@ -49,7 +50,7 @@ func main() {
 	groupsClient.Authorizer = spt
 	_, err = groupsClient.CreateOrUpdate(resourceGroup, group)
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Println("Error: %v", err)
 		return
 	}
 
@@ -60,33 +61,37 @@ func main() {
 		accountProperty := account.(map[interface{}]interface{})
 		accountKey, err := createStrageAccount(accoutClient, resourceGroup, accountProperty["name"].(string))
 		if err != nil {
-			log.Fatalf("Storage Account Creation Error %v", err)
-			return
+			log.Printf("Storage Account Creation Error : %v", err)
+			continue
 		}
 		containers := accountProperty["containers"].([]interface{})
 		for _, container := range containers {
 			containerProperty := container.(map[interface{}]interface{})
 			createContainer(accountProperty["name"].(string), accountKey, containerProperty["name"].(string))
+			if err != nil {
+				log.Printf("Container Creation Error : %v", err)
+				continue
+			}
 		}
 	}
-
 }
 
-func createContainer(storageAccountName string, storageAccountKeyValue string, containerName string) {
+func createContainer(storageAccountName string, storageAccountKeyValue string, containerName string) error {
 	client, err := storagem.NewBasicClient(storageAccountName, storageAccountKeyValue)
 	if err != nil {
-		log.Fatalf("Error: %v", err)
-		return
+		log.Printf("Error: %v", err)
+		return err
 	}
 
 	blobClient := client.GetBlobService()
 	container := blobClient.GetContainerReference(containerName)
 	_, err = container.CreateIfNotExists()
 	if err != nil {
-		log.Fatalf("Error: %v", err)
-		return
+		log.Println("Error: %v", err)
+		return err
 	}
-	fmt.Printf("Container %s has been created", containerName)
+	log.Printf("Container %s has been created\n", containerName)
+	return nil
 }
 
 func checkEnvVar(envVars *map[string]string) error {
@@ -108,15 +113,13 @@ func createStrageAccount(accoutClient storage.AccountsClient, resourceGroup stri
 			Name: to.StringPtr(strageName),
 			Type: to.StringPtr("Microsoft.Storage/storageAccounts")})
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Printf("Error: %v", err)
 		return "", err
 	}
 
 	if !to.Bool(cna.NameAvailable) {
-		fmt.Printf("%s is unavailable -- try with another name\n", strageName)
-		return "", err
+		return "", errors.New("Strage name \"" + strageName + "\" is unavailable")
 	}
-	fmt.Printf("%s is available\n\n", strageName)
 
 	cp := storage.AccountCreateParameters{
 		Sku: &storage.Sku{
@@ -125,20 +128,19 @@ func createStrageAccount(accoutClient storage.AccountsClient, resourceGroup stri
 		Location: to.StringPtr("japaneast")}
 	cancel := make(chan struct{})
 	if _, err = accoutClient.Create(resourceGroup, strageName, cp, cancel); err != nil {
-		fmt.Printf("Create '%s' storage account failed: %v\n", strageName, err)
+		log.Println("Create '%s' storage account failed: %v\n", strageName, err)
 	}
 
 	keyResults, err := accoutClient.ListKeys(resourceGroup, strageName)
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Println("Error: %v", err)
 		return "", err
 	}
 	accountKeyList := keyResults.Keys
 	pl := *accountKeyList
 	accountKey := pl[0]
 	value := accountKey.Value
-	fmt.Printf("AccountKey: %s\nValue: %s", strageName, *value)
+	log.Printf("AccountKey: %s\nValue: %s\n", strageName, *value)
 
 	return *value, nil
-
 }
