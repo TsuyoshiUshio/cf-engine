@@ -1,5 +1,5 @@
-hash: eacd110a03b94816f80b0b203315f446fb1de8dd68862e6296b6c7d0b92ab576
-updated: 2017-04-05T16:13:21.5621557+09:00
+hash: f162faae8fcdcd6bda39e0da4ec0a03d4559208b684a7f426028e5f9b7958f96
+updated: 2017-04-06T11:30:58.4305559+09:00
 imports:
 - name: github.com/Azure/azure-sdk-for-go
   version: 8b742db0f792bb89ee4dadbdb2314aeb9a5626d2
@@ -18,6 +18,6 @@ imports:
   - autorest/validation
 - name: github.com/dgrijalva/jwt-go
   version: 2268707a8f0843315e2004ee4f1d021dc08baedf
-- name: gopkg.in/yaml.v2
-  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
+- name: github.com/spf13/viper
+  version: 84f94806c67f59dd7ae87bc5351f7a9c94a4558d
 testImports: []

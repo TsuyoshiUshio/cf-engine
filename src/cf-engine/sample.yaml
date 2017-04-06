@@ -1,0 +1,16 @@
+AZURE_SUBSCRIPTION_ID: 
+AZURE_TENANT_ID:
+AZURE_CLIENT_ID:
+AZURE_SECRET:
+RESOURCE_GROUP: RemoveCF
+STORAGE_ACCOUNT: 
+  - name: xstorageaccount
+    containers:
+      - name: containerA
+        args: "--help"
+      - name: contaienrB
+  - name: xstorageaccount2
+    containers:
+      - name: containerC
+      - name: containerD
+ 
