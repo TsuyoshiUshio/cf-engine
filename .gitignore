@@ -1,2 +1,8 @@
 src/cf-engine/vendor
 src/cf-engine/cf-engine.exe
+src/cf-engine/test.yaml
+bin/
+pkg/
+src/github.com
+src/golang.org
+src/sourcegraph.com
