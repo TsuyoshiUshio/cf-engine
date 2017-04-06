@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"log"
 	"os"
-//	"flag"
-//	"io"
-//    "gopkg.in/yaml.v2"
+	"io/ioutil"
+	"flag"
+    "gopkg.in/yaml.v2"
+
 
 	"github.com/Azure/azure-sdk-for-go/arm/examples/helpers"
 	"github.com/Azure/azure-sdk-for-go/arm/storage"
@@ -17,6 +18,19 @@ import (
 )
 
 func main() {
+    fileName = flag.String("f", ".container-config.yml", "Configuration File: Path to Configuration file")
+	flag.Parse()
+	file, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		log.Fatalf("Error: %v", err)		
+		return 
+	}
+	defer file.Close()
+	fileNameYaml = string(file)
+
+
+
+
 	resourceGroup := os.Getenv("RESOURCE_GROUP")
 	name   := os.Getenv("STORAGE_ACCOUNT_NAME")
 
@@ -93,6 +107,7 @@ func main() {
 
 
 }
+
 
 func createContainer(storageAccountName string, storageAccountKeyValue string, containerName string) {
 	client, err := storagem.NewBasicClient(storageAccountName, storageAccountKeyValue)

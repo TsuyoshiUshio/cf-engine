@@ -1,8 +1,10 @@
 hash: f162faae8fcdcd6bda39e0da4ec0a03d4559208b684a7f426028e5f9b7958f96
-updated: 2017-04-06T11:30:58.4305559+09:00
+updated: 2017-04-06T12:04:07.793522+09:00
 imports:
+- name: github.com/armon/consul-api
+  version: dcfedd50ed5334f96adee43fc88518a4f095e15c
 - name: github.com/Azure/azure-sdk-for-go
-  version: 8b742db0f792bb89ee4dadbdb2314aeb9a5626d2
+  version: b3a1b2f74f930591268538c2bf9f46e249736429
   subpackages:
   - arm/examples/helpers
   - arm/resources/resources
@@ -16,8 +18,93 @@ imports:
   - autorest/date
   - autorest/to
   - autorest/validation
+- name: github.com/coreos/go-etcd
+  version: 003851be7bb0694fe3cc457a49529a19388ee7cf
+  subpackages:
+  - etcd
 - name: github.com/dgrijalva/jwt-go
   version: 2268707a8f0843315e2004ee4f1d021dc08baedf
+- name: github.com/fsnotify/fsnotify
+  version: 4da3e2cfbabc9f751898f250b49f2439785783a1
+- name: github.com/hashicorp/hcl
+  version: 630949a3c5fa3c613328e1b8256052cbc2327c9b
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/token
+  - json/parser
+  - hcl/printer
+  - hcl/scanner
+  - json/scanner
+  - json/token
+- name: github.com/kr/fs
+  version: 2788f0dbd16903de03cb8186e5c7d97b69ad387b
+- name: github.com/magiconair/properties
+  version: 51463bfca2576e06c62a8504b5c0f06d61312647
+- name: github.com/mitchellh/mapstructure
+  version: 53818660ed4955e899c0bcafa97299a388bd7c8e
+- name: github.com/pelletier/go-buffruneio
+  version: c37440a7cf42ac63b919c752ca73a85067e05992
+- name: github.com/pelletier/go-toml
+  version: fe206efb84b2bc8e8cfafe6b4c1826622be969e3
+- name: github.com/pkg/errors
+  version: ff09b135c25aae272398c51a07235b90a75aa4f0
+- name: github.com/pkg/sftp
+  version: 6c86161fec09fa4d543f4ae7fc67dfab22abf457
+- name: github.com/spf13/afero
+  version: 9be650865eab0c12963d8753212f4f9c66cdcf12
+  subpackages:
+  - mem
+- name: github.com/spf13/cast
+  version: ce135a4ebeee6cfe9a26c93ee0d37825f26113c7
+- name: github.com/spf13/jwalterweatherman
+  version: fa7ca7e836cf3a8bb4ebf799f472c12d7e903d66
+- name: github.com/spf13/pflag
+  version: 9a906f17374922ed0f74e1b2f593d3723f2ffb00
 - name: github.com/spf13/viper
   version: 84f94806c67f59dd7ae87bc5351f7a9c94a4558d
+- name: github.com/ugorji/go
+  version: 708a42d246822952f38190a8d8c4e6b16a0e600c
+  subpackages:
+  - codec
+- name: github.com/xordataexchange/crypt
+  version: 749e360c8f236773f28fc6d3ddfce4a470795227
+  subpackages:
+  - config
+  - backend
+  - backend/consul
+  - backend/etcd
+  - encoding/secconf
+- name: golang.org/x/crypto
+  version: c2303dcbe84172e0c0da4c9f083eeca54c06f298
+  repo: https://github.com/golang/crypto.git
+  vcs: git
+  subpackages:
+  - pkcs12
+  - pkcs12/internal/rc2
+  - ssh
+  - ssh/agent
+  - openpgp
+  - curve25519
+  - ed25519
+  - openpgp/armor
+  - openpgp/errors
+  - openpgp/packet
+  - openpgp/s2k
+  - cast5
+  - ed25519/internal/edwards25519
+- name: golang.org/x/sys
+  version: 39e3dc274464e7d2f663aa606a830611bae5f1db
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: f4b4367115ec2de254587813edaa901bc1c723a8
+  repo: https://github.com/golang/text.git
+  vcs: git
+  subpackages:
+  - .
+  - transform
+  - unicode/norm
+- name: gopkg.in/yaml.v2
+  version: a3f3340b5840cee44f372bddb5880fcbc419b46a
 testImports: []
