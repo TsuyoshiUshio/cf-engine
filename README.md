@@ -1,4 +1,4 @@
-Cloud Foundry Cluster provisioner for Azure
+Storage account and container provisioner for Azure
 ===
 
 This project is a Cloud Foundry provisioner. Accoring to the installation guide. 
